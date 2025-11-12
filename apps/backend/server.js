@@ -96,6 +96,33 @@ app.post("/publish-playlist", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/search-songs", async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.status(400).json({ error: "Query parameter is required" });
+  }
+
+  try {
+    const itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(
+      query
+    )}&entity=song&limit=5`;
+    const response = await fetch(itunesUrl);
+    const data = await response.json();
+
+    const songs = data.results.map((song) => ({
+      title: song.trackName,
+      artist: song.artistName,
+      link: song.previewUrl || null,
+    }));
+
+    res.status(200).json(songs);
+  } catch (err) {
+    console.error("Error fetching songs from iTunes:", err);
+    res.status(500).json({ error: "Failed to fetch songs" });
+  }
+});
+
 app.post("/add-song", (req, res) => {
   res.send("Hello World!");
 });
