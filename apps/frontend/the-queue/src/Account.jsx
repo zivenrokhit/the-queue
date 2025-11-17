@@ -1,12 +1,34 @@
 import { useState } from "react";
 import SignUp from "./signUp";
 import SignIn from "./signIn";
+import { useAuth } from "./AuthContext";
 
 export default function Account(props) {
   const [accountView, setAccountView] = useState("");
+  const { user, isLoggedIn } = useAuth();
 
-  if (props.isLoggedIn) {
-    return <h1>Account</h1>;
+  if (isLoggedIn) {
+    return (
+      <>
+        <h1>Account</h1>
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "20px",
+            marginTop: "20px",
+            textAlign: "center",
+          }}
+        >
+          <h2>Welcome {user ? user.username : "User"}!</h2>
+          <h3>Here are your playlists:</h3>
+
+          <div style={{ marginTop: "20px", color: "gray" }}>
+            <p>No playlists created yet.</p>
+          </div>
+        </div>
+      </>
+    );
   }
 
   if (accountView === "signup") {
@@ -22,7 +44,6 @@ export default function Account(props) {
     return (
       <>
         <h1>Account</h1>
-
         <SignIn onBack={() => setAccountView("")} />
       </>
     );

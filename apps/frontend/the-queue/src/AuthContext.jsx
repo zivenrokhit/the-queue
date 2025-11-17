@@ -17,8 +17,9 @@ export const AuthProvider = ({ children }) => {
       if (!response.ok) throw new Error("Login failed");
 
       const data = await response.json();
-      setUser(data);
+      setUser(data.user);
       setIsLoggedIn(true);
+      console.log("Log in succesful!", data);
     } catch (error) {
       console.error("Error logging in:", error);
       alert("Invalid username or password");

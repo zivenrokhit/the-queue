@@ -3,14 +3,41 @@ import React, { useState } from "react";
 export default function SignUp({ onBack }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setfullName] = useState("");
-  const [age, setAge] = useState("");
-  const [bio, setBio] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    createAccount();
   };
 
+  const createAccount = async () => {
+    fetch("http://localhost:8080/signup", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(text || "Sign up failed");
+          });
+        }
+        return response;
+      })
+      .then((response) => {
+        console.log("Sign up successful!");
+        onBack();
+      })
+      .catch((error) => {
+        console.error("sign up failed", error.message);
+        alert(error.message);
+      });
+  };
   return (
     <div
       style={{
@@ -60,34 +87,6 @@ export default function SignUp({ onBack }) {
           }}
         />
 
-        <input
-          type="text"
-          placeholder="Enter Full Name"
-          value={fullName}
-          required
-          onChange={(e) => setfullName(e.target.value)}
-          style={{
-            padding: "12px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-        />
-
-        <input
-          type="text"
-          placeholder="Enter Age"
-          value={age}
-          required
-          onChange={(e) => setAge(e.target.value)}
-          style={{
-            padding: "12px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-        />
-
         <button
           type="submit"
           style={{
@@ -100,7 +99,7 @@ export default function SignUp({ onBack }) {
             cursor: "pointer",
           }}
         >
-          Sign In
+          Create Account
         </button>
       </form>
 
