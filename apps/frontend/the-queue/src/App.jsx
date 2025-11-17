@@ -1,25 +1,21 @@
-import { useState } from 'react'
-import './App.css'
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import homeIcon from './assets/home.svg';
-import playlistIcon from './assets/playlist.svg';
-import accountIcon from './assets/account.svg';
-import logo from './assets/logo.png';
-import Playlist from './Playlist';
+import { useState } from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import homeIcon from "./assets/home.svg";
+import playlistIcon from "./assets/playlist.svg";
+import accountIcon from "./assets/account.svg";
+import logo from "./assets/logo.png";
+import Playlist from "./Playlist";
+import Account from "./Account";
+import { useAuth } from "./AuthContext";
+import Home from "./Home";
 
 const navLinkStyles = ({ isActive }) => ({
-    backgroundColor: isActive ? '#F4C3A4' : 'transparent',
-    borderWidth: isActive ? '2px 0px 2px 2px' : "2px 0px 2px 2px",
-    borderStyle: 'solid',
-    borderColor: isActive ? '#000000' : 'transparent',
-})
-
-function Home() {
-    return <h1>home test</h1>
-}
-function Account() {
-    return <h1>account test</h1>
-}
+  backgroundColor: isActive ? "#F4C3A4" : "transparent",
+  borderWidth: isActive ? "2px 0px 2px 2px" : "2px 0px 2px 2px",
+  borderStyle: "solid",
+  borderColor: isActive ? "#000000" : "transparent",
+});
 
 function App() {
   const [count, setCount] = useState(0);
