@@ -13,11 +13,12 @@ export default function Account(props) {
         <h1>Account</h1>
         <div
           style={{
-            backgroundColor: "white",
-            padding: "20px",
+            backgroundColor: "#FAC3A4",
+            padding: "10px",
             borderRadius: "20px",
             marginTop: "20px",
             textAlign: "center",
+            WebkitTextFillColor: "black",
           }}
         >
           <h2>Welcome {user ? user.username : "User"}!</h2>
