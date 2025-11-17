@@ -21,43 +21,51 @@ function Account() {
     return <h1>account test</h1>
 }
 
-
-
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const { isLoggedIn, login, logout } = useAuth();
 
   return (
     <>
-      <div id="main"> {/* main container */}
+      <div id="main">
+        {" "}
+        {/* main container */}
         <BrowserRouter>
-
-          <nav>                                           {/*side navigation bar - used for routing with NavLink and specified routes */}                                    
-            <img src={logo} alt="The Queue Logo" />       {/* calling components with return into the feed element*/}
-            <NavLink to = "/" style={navLinkStyles}>
-              <img src={homeIcon} alt="home icon"/>
-              Home    
+          <nav>
+            {" "}
+            {/*side navigation bar - used for routing with NavLink and specified routes */}
+            <img src={logo} alt="The Queue Logo" />{" "}
+            {/* calling components with return into the feed element*/}
+            <NavLink to="/" style={navLinkStyles}>
+              <img src={homeIcon} alt="home icon" />
+              Home
             </NavLink>
-            <NavLink to = "/create-playlist" style={navLinkStyles}>
-              <img src={playlistIcon} alt="playlist icon"/>
-              Create Playlist  
+            <NavLink to="/create-playlist" style={navLinkStyles}>
+              <img src={playlistIcon} alt="playlist icon" />
+              Create Playlist
             </NavLink>
-            <NavLink to = "/account" style={navLinkStyles}>
-              <img src={accountIcon} alt="account icon"/>
-              Account  
+            <NavLink to="/account" style={navLinkStyles}>
+              <img src={accountIcon} alt="account icon" />
+              Account
             </NavLink>
-          </nav> 
+          </nav>
 
           <div id="feed">
             <Routes>
-              <Route path='/' element = {<Home />} ></Route>
-              <Route path='/create-playlist' element = {<Playlist />} ></Route>
-              <Route path='/account' element = {<Account />}> </Route> 
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/create-playlist" element={<Playlist />}></Route>
+              <Route
+                path="/account"
+                element={<Account isLoggedIn={isLoggedIn} />}
+              >
+                {" "}
+              </Route>
             </Routes>
           </div>
         </BrowserRouter>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

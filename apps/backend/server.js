@@ -1,11 +1,14 @@
 import express from "express";
 import mysql from "mysql";
 import bcrypt from "bcrypt";
-const app = express();
+import cors from "cors";
 import { swaggerUiServe, swaggerUiSetup } from "./swagger.js";
 const port = 8080;
 
+const app = express();
+
 app.use(express.json());
+app.use(cors());
 app.use("/api-docs", swaggerUiServe, swaggerUiSetup);
 
 export const db = mysql.createConnection({
