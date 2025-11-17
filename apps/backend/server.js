@@ -98,12 +98,21 @@ app.get("/feed", (req, res) => {
 });
 
 app.post("/like", (req, res) => {
-  res.send("Hello World!");
+  const { playlistID } = req.body;
+  
+    const increaseLiked = "UPDATE playlists SET likes = likes + 1 WHERE playlist_id = ?";
+    
+    db.query(increaseLiked, [playlistID], (err, playlistID) => {
+      if (err) {
+        console.error("ERROR: Error updating playlistID:", err);
+        return res
+          .status(500)
+          .json({ error: "Database error while updating playlist likes" }
+                }
+    }
 });
 
-app.post("/dislike", (req, res) => {
-  res.send("Hello World!");
-});
+
 
 /**
  * @swagger
