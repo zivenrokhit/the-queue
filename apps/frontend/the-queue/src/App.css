@@ -97,3 +97,13 @@ h4{
 #like-button > p{
   margin-right: 10px;
 }
+#create-playlist{
+  display: flex;
+  flex-direction: column;
+}
+#search-songs:focus-within .dropdown{
+  display: block;
+}
+.dropdown{
+  display: none;
+}
