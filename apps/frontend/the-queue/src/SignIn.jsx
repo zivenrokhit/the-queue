@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 
 export default function SignIn({ onBack }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await login(username, password);
   };
 
   return (
@@ -66,6 +69,7 @@ export default function SignIn({ onBack }) {
             fontSize: "16px",
             cursor: "pointer",
           }}
+          onClick={handleSubmit}
         >
           Sign In
         </button>
