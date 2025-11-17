@@ -6,6 +6,7 @@ import playlistIcon from "./assets/playlist.svg";
 import accountIcon from "./assets/account.svg";
 import logo from "./assets/logo.png";
 import Home from "./Home";
+import Account from "./Account";
 
 const navLinkStyles = ({ isActive }) => ({
   backgroundColor: isActive ? "#F4C3A4" : "transparent",
@@ -16,9 +17,6 @@ const navLinkStyles = ({ isActive }) => ({
 
 function Playlist() {
   return <h1>playlist test</h1>;
-}
-function Account() {
-  return <h1>account test</h1>;
 }
 
 function App() {
@@ -53,7 +51,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/create-playlist" element={<Playlist />}></Route>
-              <Route path="/account" element={<Account />}>
+              <Route path="/account" element={<Account isLoggedIn={false} />}>
                 {" "}
               </Route>
             </Routes>
