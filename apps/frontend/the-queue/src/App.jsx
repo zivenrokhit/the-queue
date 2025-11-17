@@ -7,6 +7,7 @@ import accountIcon from "./assets/account.svg";
 import logo from "./assets/logo.png";
 import Home from "./Home";
 import Account from "./Account";
+import { useAuth } from "./AuthContext";
 
 const navLinkStyles = ({ isActive }) => ({
   backgroundColor: isActive ? "#F4C3A4" : "transparent",
@@ -21,6 +22,7 @@ function Playlist() {
 
 function App() {
   const [count, setCount] = useState(0);
+  const { isLoggedIn, login, logout } = useAuth();
 
   return (
     <>
@@ -51,7 +53,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/create-playlist" element={<Playlist />}></Route>
-              <Route path="/account" element={<Account isLoggedIn={false} />}>
+              <Route
+                path="/account"
+                element={<Account isLoggedIn={isLoggedIn} />}
+              >
                 {" "}
               </Route>
             </Routes>
