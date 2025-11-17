@@ -95,12 +95,36 @@ app.get("/feed", (req, res) => {
 });
 
 app.post("/like", (req, res) => {
-  res.send("Hello World!");
+  const { playlistID, likedBool} = req.body;
+  if (likedBool == true) {
+    const increaseLiked = "UPDATE playlists SET likes = likes + 1 WHERE playlist_id = ?";
+    
+    db.query(increaseLiked, [playlistID], (err, playlistID) => {
+      if (err) {
+        console.error("ERROR: Error finding playlistID:", err);
+        return res
+          .status(500)
+          .json({ error: "Database error while updating playlist likes" 
+      });
+    }
+      
+    /**not sure if there was a way to do this in one like but I figured this would be easier, and also easier to read*/
+    /**also im not sure how this will work with people removing like as it currently assumes the user either likes or dislikes the post**/
+      
+  } else {
+    const increaseDisliked = "UPDATE playlists SET dislikes = dislikes + 1 WHERE playlist_id = ?";
+    
+    db.query(increaseDisliked, [playlistID], (err, playlistID) => {
+      if (err) {
+        console.error("ERROR: Error finding playlistID:", err);
+        return res
+          .status(500)
+          .json({ error: "Database error while updating playlist dislikes" });
+    });
+  }
 });
 
-app.post("/dislike", (req, res) => {
-  res.send("Hello World!");
-});
+
 
 /**
  * @swagger
