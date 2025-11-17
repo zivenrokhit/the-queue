@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
+import Post from "./Post";
 
-function Playlist() {
-  return <div>this will be a playlist</div>;
-}
 function Home() {
   const [feed, setFeed] = useState([]);
 
@@ -24,7 +22,7 @@ function Home() {
       <div>
         <h1>The Queue</h1>
         {feed.map((playlist) => (
-          <div key={playlist.id}>{playlist.name}</div>
+          <Post data={playlist} />
         ))}
       </div>
     </>
