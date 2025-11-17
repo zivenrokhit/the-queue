@@ -107,6 +107,84 @@ app.post("/dislike", (req, res) => {
 
 /**
  * @swagger
+ * /get-my-playlists:
+ *   get:
+ *     summary: Get all playlists owned by a specific user
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user whose playlists are being fetched
+ *     responses:
+ *       200:
+ *         description: List of user's playlists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   playlist_id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   songs:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         title:
+ *                           type: string
+ *                         artist:
+ *                           type: string
+ *                         link:
+ *                           type: string
+ *                   likes:
+ *                     type: integer
+ *                   dislikes:
+ *                     type: integer
+ *                   last_edited:
+ *                     type: string
+ *                     format: date-time
+ *       400:
+ *         description: Missing userId
+ *       500:
+ *         description: Database error
+ */
+app.get("/get-my-playlists", (req, res) => {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ error: "userId is required" });
+  }
+
+  const query = `
+    SELECT playlist_id, name, songs, likes, dislikes, last_edited
+    FROM playlists
+    WHERE user_id = ?
+    ORDER BY last_edited DESC
+  `;
+
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching user playlists:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    const playlists = results.map((playlist) => ({
+      ...playlist,
+      songs: JSON.parse(playlist.songs),
+    }));
+
+    res.status(200).json(playlists);
+  });
+});
+
+/**
+ * @swagger
  * /create-playlist:
  *   post:
  *     summary: Create a new playlist
