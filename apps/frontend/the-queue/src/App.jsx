@@ -5,6 +5,7 @@ import homeIcon from './assets/home.svg';
 import playlistIcon from './assets/playlist.svg';
 import accountIcon from './assets/account.svg';
 import logo from './assets/logo.png';
+import Playlist from './Playlist';
 
 const navLinkStyles = ({ isActive }) => ({
     backgroundColor: isActive ? '#F4C3A4' : 'transparent',
@@ -15,9 +16,6 @@ const navLinkStyles = ({ isActive }) => ({
 
 function Home() {
     return <h1>home test</h1>
-}
-function Playlist() {
-    return <h1>playlist test</h1>
 }
 function Account() {
     return <h1>account test</h1>

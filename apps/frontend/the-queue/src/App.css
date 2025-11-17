@@ -48,3 +48,49 @@ nav > a:hover{
 nav > a > img{
   padding-right: 30px;
 }
+#post{
+  width: 576px;
+  min-height: 320px;
+  border-width: 2px 0px 2px 0px;
+  border-color: #000000;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+}
+#post > h1,h2,h3{
+    margin-top: 0;
+}
+#post > h1{
+    margin-bottom: 10px; 
+}
+#post > h2, h3{
+    margin: auto;
+    padding-bottom: 5px;
+}
+#songs-box{
+  overflow-y: scroll;
+  padding-bottom: 10px;
+}
+#songs-box > div{
+    display:flex;
+    flex-direction: row;
+    padding-top: 10px;
+}
+h4{
+  margin: 0;
+  padding-right: 5px;
+} 
+#bottom-bar{
+  padding: 5px;
+}
+#link-button{
+  float: left;
+}
+#like-button{
+  float: right;
+  display: flex;
+  flex-direction: row;
+}
+#like-button > p{
+  margin-right: 10px;
+}
