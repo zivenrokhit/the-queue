@@ -1,11 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SignUp from "./signUp";
 import SignIn from "./signIn";
 import { useAuth } from "./AuthContext";
+import Post from "./Post";
 
 export default function Account(props) {
   const [accountView, setAccountView] = useState("");
+  const [playlists, setPlaylists] = useState([]);
   const { user, isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (!user || !user.userId) {
+      console.log("User not ready yet:", user);
+      return;
+    }
+
+    console.log("Fetching playlists for user:", user.userId);
+
+    fetch(`http://localhost:8080/get-my-playlists?userId=${user.userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched playlists:", data);
+        setPlaylists(data);
+      })
+      .catch((err) => console.error("Error fetching playlists:", err));
+  }, [user]);
 
   if (isLoggedIn) {
     return (
@@ -23,6 +42,9 @@ export default function Account(props) {
         >
           <h2>Welcome {user ? user.username : "User"}!</h2>
           <h3>Here are your playlists:</h3>
+          {playlists.map((playlist) => (
+            <Post key={playlist.playlist_id} data={playlist} />
+          ))}
 
           <div style={{ marginTop: "20px", color: "gray" }}>
             <p>No playlists created yet.</p>

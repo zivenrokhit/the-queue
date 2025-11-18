@@ -19,7 +19,7 @@ const navLinkStyles = ({ isActive }) => ({
 
 function App() {
   const [count, setCount] = useState(0);
-  const { isLoggedIn, login, logout, User } = useAuth();
+  const { isLoggedIn, login, logout, user } = useAuth();
 
   return (
     <>
@@ -49,7 +49,10 @@ function App() {
           <div id="feed">
             <Routes>
               <Route path="/" element={<Home />}></Route>
-              <Route path="/create-playlist" element={<Playlist user={User}/>}></Route>
+              <Route
+                path="/create-playlist"
+                element={<Playlist user={user} />}
+              ></Route>
               <Route
                 path="/account"
                 element={<Account isLoggedIn={isLoggedIn} />}
