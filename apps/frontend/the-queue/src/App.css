@@ -6,6 +6,19 @@ body {
   margin: 0;
   padding: 0;
 }
+label {
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 10px;
+  width: 300px;
+}
+input[type="text"] {
+  width: 300px;
+  height: 30px;
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
 
 #main {
   min-height: 100vh;
@@ -101,9 +114,35 @@ h4{
   display: flex;
   flex-direction: column;
 }
+#playlist-control{
+  display: flex;
+}
+#playlist-control > button{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+#search-songs{
+   display: flex;
+    flex-direction: column;
+}
 #search-songs:focus-within .dropdown{
   display: block;
 }
 .dropdown{
   display: none;
+  height: auto;
+  position: absolute;
+  width: 300px;
+  background-color: beige;
+  top: 210px;
+  font-size: 16px;
 }
+.dropdown p{
+  margin: 0;
+  padding: 5px;
+}
+.dropdown p:hover{
+  cursor: pointer;
+  background-color: #b99279;
+}
+
