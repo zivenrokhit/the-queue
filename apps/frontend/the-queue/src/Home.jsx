@@ -22,7 +22,7 @@ function Home() {
       <div>
         <h1>The Queue</h1>
         {feed.map((playlist) => (
-          <Post data={playlist} />
+          <Post data={playlist} isFeedPost={true} />
         ))}
       </div>
     </>

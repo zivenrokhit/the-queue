@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export default function Playlist(props) {
   const [playlistName, setPlaylistName] = useState("");
+  const [songQuery, setSongQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [songsList, setSongslist] = useState([]);
 
@@ -50,6 +51,12 @@ export default function Playlist(props) {
         return response.text().then((text) => {
           throw new Error(text || "Playlist creation failed");
         });
+      } else {
+        alert("Playlist succesfully created!");
+        setPlaylistName("");
+        setSongQuery("");
+        setSearchResults([]);
+        setSongslist([]);
       }
       return response;
     });
@@ -59,13 +66,21 @@ export default function Playlist(props) {
     <>
       <div id="create-playlist">
         <label>Enter playlist Name:</label>
-        <input type="text" onChange={(e) => setPlaylistName(e.target.value)} />
+        <input
+          type="text"
+          value={playlistName}
+          onChange={(e) => setPlaylistName(e.target.value)}
+        />
         <div id="search-songs">
           <label>Enter The Name of the song you wish to add: </label>
           <input
             type="text"
             placeholder="Search.."
-            onChange={(e) => SearchSongs(e.target.value)}
+            value={songQuery}
+            onChange={(e) => {
+              setSongQuery(e.target.value);
+              SearchSongs(e.target.value);
+            }}
           />
 
           <div className="dropdown">
