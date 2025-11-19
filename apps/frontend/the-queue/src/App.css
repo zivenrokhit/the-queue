@@ -19,7 +19,7 @@ input[type="text"] {
   padding: 5px;
   margin-bottom: 10px;
 }
-button{
+button {
   background-color: beige;
   border: 2px black solid;
   color: black;
@@ -31,7 +31,7 @@ button{
   cursor: pointer;
 }
 
-button:hover{
+button:hover {
   background-color: white;
 }
 
@@ -50,13 +50,13 @@ button:hover{
   border-width: 0px 2px;
   border-style: solid;
   border-color: #000000;
-  max-width: 600px;
+  max-width: 700px;
   padding: 10px;
   min-height: 100vh;
   max-height: 100vh;
   box-sizing: border-box;
   background-color: #f4c3a4;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 nav {
   display: flex;
@@ -83,7 +83,7 @@ nav > a > img {
   padding-right: 30px;
 }
 #post {
-  width: 576px;
+  max-width: 576px;
   min-height: 320px;
   border-width: 2px 0px 2px 0px;
   border-color: #000000;
@@ -168,31 +168,31 @@ h4 {
   background-color: #b99279;
 }
 
-@media (max-width: 600px){
-    #main{
-      flex-direction: column-reverse;
-    }
-    #feed{
-      width: 100%;
-      border: none;
-      overflow-y:auto;
-    }
-    nav{
-      flex-direction: row;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      justify-content: space-around;
-    }
-    nav > a{
-      font-size: 0;
-      width: auto;
-      border-style: none;
-      padding: 20px;
-    }
-    nav > a > img{
-      padding-right: 0;
-      width: 40px;
-      height: 40px;
-    }
+@media (max-width: 700px) {
+  #main {
+    flex-direction: column-reverse;
+  }
+  #feed {
+    width: 100%;
+    border: none;
+    overflow-y: auto;
+  }
+  nav {
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    justify-content: space-around;
+  }
+  nav > a {
+    font-size: 0;
+    width: auto;
+    border-style: none;
+    padding: 20px;
+  }
+  nav > a > img {
+    padding-right: 0;
+    width: 40px;
+    height: 40px;
+  }
 }

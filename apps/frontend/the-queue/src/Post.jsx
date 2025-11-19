@@ -4,7 +4,13 @@ import binIcon from "./assets/binButton.png";
 import linkIcon from "./assets/Link.svg";
 import threeDots from "./assets/3dots.png";
 
-export default function Post({ data, isFeedPost, username, onDelete }) {
+export default function Post({
+  data,
+  isFeedPost,
+  username,
+  onDelete,
+  onEditPlaylist,
+}) {
   const [clickedLike, setClickedLike] = useState(false);
   const [likeCount, setLikeCount] = useState(data.likes);
 
@@ -124,7 +130,11 @@ export default function Post({ data, isFeedPost, username, onDelete }) {
         )}
         {!isFeedPost && (
           <div id="deleteAndEditButtons">
-            <img src={threeDots} alt="3 dot icon" />
+            <img
+              src={threeDots}
+              alt="3 dot icon"
+              onClick={() => onEditPlaylist && onEditPlaylist(playlist)}
+            />
 
             <img src={binIcon} alt="bin icon" onClick={deletePlaylist} />
           </div>

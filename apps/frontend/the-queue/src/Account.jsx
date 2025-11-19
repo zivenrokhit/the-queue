@@ -3,9 +3,11 @@ import SignUp from "./signUp";
 import SignIn from "./signIn";
 import { useAuth } from "./AuthContext";
 import Post from "./Post";
+import EditPlaylist from "./EditPlaylist";
 
 export default function Account(props) {
   const [accountView, setAccountView] = useState("");
+  const [editingPlaylist, setEditingPlaylist] = useState(null);
   const [playlists, setPlaylists] = useState([]);
   const { user, isLoggedIn } = useAuth();
 
@@ -26,7 +28,37 @@ export default function Account(props) {
       .catch((err) => console.error("Error fetching playlists:", err));
   }, [user]);
 
+  const onEditPlaylist = (playlist) => {
+    setEditingPlaylist(playlist);
+    setAccountView("editPlaylist");
+    setSelectedEditPlaylist(playlist);
+    console.log("account view set to", playlist);
+  };
+
+  const backFromEdit = () => {
+    setEditingPlaylist(null);
+    setAccountView("");
+  };
+
+  const onUpdatePlaylist = (updatedPlaylist) => {
+    setPlaylists((prev) =>
+      prev.map((p) =>
+        p.playlist_id === updatedPlaylist.playlist_id ? updatedPlaylist : p
+      )
+    );
+  };
+
   if (isLoggedIn) {
+    if (accountView === "editPlaylist" && editingPlaylist) {
+      return (
+        <EditPlaylist
+          playlist={editingPlaylist}
+          user={user}
+          onBack={backFromEdit}
+          onUpdatePlaylist={onUpdatePlaylist}
+        />
+      );
+    }
     return (
       <>
         <h1>Account</h1>
@@ -53,6 +85,7 @@ export default function Account(props) {
                   prev.filter((p) => p.playlist_id !== deletedId)
                 );
               }}
+              onEditPlaylist={onEditPlaylist}
             />
           ))}
 
