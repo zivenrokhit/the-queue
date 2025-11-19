@@ -648,6 +648,85 @@ app.post("/add-song", (req, res) => {
 
 /**
  * @swagger
+ * /edit-songs:
+ *   post:
+ *     summary: Replace all songs in a playlist
+ *     description: Updates the JSON songs array stored in the playlist.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - playlistId
+ *               - songs
+ *             properties:
+ *               playlistId:
+ *                 type: integer
+ *                 example: 12
+ *               songs:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     title:
+ *                       type: string
+ *                     artist:
+ *                       type: string
+ *                     link:
+ *                       type: string
+ *     responses:
+ *       200:
+ *         description: Songs updated successfully
+ *       400:
+ *         description: Missing playlistId or songs array
+ *       404:
+ *         description: Playlist not found
+ *       500:
+ *         description: Server error
+ */
+
+app.post("/edit-songs", (req, res) => {
+  const { playlistId, songs } = req.body;
+
+  if (!playlistId || !Array.isArray(songs)) {
+    return res.status(400).json({
+      error: "playlistId and a valid songs array are required",
+    });
+  }
+
+  const selectQuery = "SELECT name FROM playlists WHERE playlist_id = ?";
+  db.query(selectQuery, [playlistId], (err, results) => {
+    if (err) {
+      console.error("Error fetching playlist:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Playlist not found" });
+    }
+
+    const playlistName = results[0].name;
+
+    const updateQuery = "UPDATE playlists SET songs = ? WHERE playlist_id = ?";
+    db.query(updateQuery, [JSON.stringify(songs), playlistId], (updateErr) => {
+      if (updateErr) {
+        console.error("Error updating songs:", updateErr);
+        return res.status(500).json({ error: "Database error" });
+      }
+
+      res.status(200).json({
+        message: "Songs updated successfully",
+        playlistName,
+        totalSongs: songs.length,
+      });
+    });
+  });
+});
+
+/**
+ * @swagger
  * /login:
  *   post:
  *     summary: Log in a user

@@ -43,7 +43,17 @@ export default function Account(props) {
           <h2>Welcome {user ? user.username : "User"}!</h2>
           <h3>Here are your playlists:</h3>
           {playlists.map((playlist) => (
-            <Post key={playlist.playlist_id} data={playlist} />
+            <Post
+              key={playlist.playlist_id}
+              data={playlist}
+              username={user.username}
+              isFeedPost={false}
+              onDelete={(deletedId) => {
+                setPlaylists((prev) =>
+                  prev.filter((p) => p.playlist_id !== deletedId)
+                );
+              }}
+            />
           ))}
 
           <div style={{ marginTop: "20px", color: "gray" }}>

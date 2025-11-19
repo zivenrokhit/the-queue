@@ -1,8 +1,10 @@
 import { useState } from "react";
 import thumbsUpIcon from "./assets/thumbsUp.svg";
+import binIcon from "./assets/binButton.png";
 import linkIcon from "./assets/Link.svg";
+import threeDots from "./assets/3dots.png";
 
-export default function Post({ data, isFeedPost }) {
+export default function Post({ data, isFeedPost, username, onDelete }) {
   const [clickedLike, setClickedLike] = useState(false);
   const [likeCount, setLikeCount] = useState(data.likes);
 
@@ -13,7 +15,7 @@ export default function Post({ data, isFeedPost }) {
   const height = noOfSongs > 10 ? 400 : noOfSongs * 40;
 
   const handleLike = async () => {
-    if (clickedLike) return; // prevent double click
+    if (clickedLike) return;
 
     setClickedLike(true);
     setLikeCount((prev) => prev + 1);
@@ -26,6 +28,33 @@ export default function Post({ data, isFeedPost }) {
       });
     } catch (error) {
       console.error("Like failed", error);
+    }
+  };
+
+  const deletePlaylist = async () => {
+    if (!username) return;
+
+    try {
+      const response = await fetch("http://localhost:8080/delete-playlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          playlistId: playlist.playlist_id,
+          username: username,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(`Playlist "${result.deletedPlaylistName}" deleted successfully!`);
+        if (onDelete) onDelete(playlist.playlist_id);
+      } else {
+        alert(`Error deleting playlist: ${result.error || "Unknown error"}`);
+      }
+    } catch (err) {
+      console.error("Delete failed", err);
+      alert("Delete failed: " + err.message);
     }
   };
 
@@ -91,6 +120,13 @@ export default function Post({ data, isFeedPost }) {
             ) : (
               <img src={thumbsUpIcon} alt="Thumbs Up Icon" />
             )}
+          </div>
+        )}
+        {!isFeedPost && (
+          <div id="deleteAndEditButtons">
+            <img src={threeDots} alt="3 dot icon" />
+
+            <img src={binIcon} alt="bin icon" onClick={deletePlaylist} />
           </div>
         )}
       </div>
