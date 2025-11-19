@@ -97,12 +97,105 @@ app.get("/feed", (req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * /like:
+ *   post:
+ *     summary: Increments the like count for a specific playlist.
+ *     description: Finds a playlist by ID and increments its 'likes' field by 1.
+ *     tags:
+ *       - Playlists
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - playlistId
+ *             properties:
+ *               playlistId:
+ *                 type: string
+ *                 description: The unique ID of the playlist to like.
+ *                 example: 'a1b2c3d4-e5f6-7890-abcd-ef0123456789'
+ *     responses:
+ *       200:
+ *         description: Success. The playlist like count was incremented.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Playlist liked successfully."
+ *                 playlistId:
+ *                   type: string
+ *                   example: 'a1b2c3d4-e5f6-7890-abcd-ef0123456789'
+ *       400:
+ *         description: Bad Request. Occurs if the playlistId is missing from the request body.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Missing playlistId in request body."
+ *       404:
+ *         description: Not Found. Occurs if no playlist with the given ID exists.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Playlist with ID a1b2c3d4-e5f6-7890-abcd-ef0123456789 not found."
+ *       500:
+ *         description: Internal Server Error. Occurs due to a database connection or query issue.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to update playlist likes."
+ */
 app.post("/like", (req, res) => {
-  res.send("Hello World!");
-});
+  const { playlistId } = req.body;
 
-app.post("/dislike", (req, res) => {
-  res.send("Hello World!");
+  if (!playlistId) {
+    return res
+      .status(400)
+      .json({ error: "Missing playlistId in request body." });
+  }
+
+  const query = `
+    UPDATE playlists
+    SET likes = likes + 1
+    WHERE playlist_id = ?;
+  `;
+
+  db.query(query, [playlistId], (err, results) => {
+    if (err) {
+      console.error("Database error while incrementing like:", err);
+      return res
+        .status(500)
+        .json({ error: "Failed to update playlist likes." });
+    }
+
+    if (results.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ error: `Playlist with ID ${playlistId} not found.` });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Playlist liked successfully.", playlistId });
+  });
 });
 
 /**
