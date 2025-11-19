@@ -12,7 +12,7 @@ import Home from "./Home";
 
 const navLinkStyles = ({ isActive }) => ({
   backgroundColor: isActive ? "#F4C3A4" : "transparent",
-  borderWidth: isActive ? "2px 0px 2px 2px" : "2px 0px 2px 2px",
+  borderWidth: isActive ? "2px 0px 2px opx" : "2px 0px 2px 0px",
   borderStyle: "solid",
   borderColor: isActive ? "#000000" : "transparent",
 });

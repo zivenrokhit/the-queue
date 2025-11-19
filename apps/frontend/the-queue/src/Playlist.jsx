@@ -80,14 +80,12 @@ export default function Playlist(props) {
         </div>
       </div>
       <div id="song-list">
-        <h3>
-          Songs in Playlist:
+        <h3>Songs in Playlist:</h3>
           {songsList.map((song, idx) => (
             <p key={idx}>
               {song.title} | {song.artist}
             </p>
           ))}
-        </h3>
       </div>
       <button onClick={submitPlaylist}>submit playlist: {playlistName}</button>
     </>

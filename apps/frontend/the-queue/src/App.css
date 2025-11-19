@@ -19,6 +19,21 @@ input[type="text"] {
   padding: 5px;
   margin-bottom: 10px;
 }
+button{
+  background-color: beige;
+  border: 2px black solid;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: white;
+}
 
 #main {
   min-height: 100vh;
@@ -38,13 +53,16 @@ input[type="text"] {
   max-width: 600px;
   padding: 10px;
   min-height: 100vh;
+  max-height: 100vh;
   box-sizing: border-box;
   background-color: #f4c3a4;
+  overflow-y:auto;
 }
 nav {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  background-color: white;
 }
 nav > a {
   display: block;
@@ -136,9 +154,9 @@ h4 {
   display: none;
   height: auto;
   position: absolute;
+  top: 210px;
   width: 300px;
   background-color: beige;
-  top: 210px;
   font-size: 16px;
 }
 .dropdown p {
@@ -148,4 +166,33 @@ h4 {
 .dropdown p:hover {
   cursor: pointer;
   background-color: #b99279;
+}
+
+@media (max-width: 600px){
+    #main{
+      flex-direction: column-reverse;
+    }
+    #feed{
+      width: 100%;
+      border: none;
+      overflow-y:auto;
+    }
+    nav{
+      flex-direction: row;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      justify-content: space-around;
+    }
+    nav > a{
+      font-size: 0;
+      width: auto;
+      border-style: none;
+      padding: 20px;
+    }
+    nav > a > img{
+      padding-right: 0;
+      width: 40px;
+      height: 40px;
+    }
 }
