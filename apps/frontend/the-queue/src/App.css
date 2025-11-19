@@ -64,7 +64,7 @@ nav > a:hover {
 nav > a > img {
   padding-right: 30px;
 }
-#post{
+#post {
   width: 576px;
   min-height: 320px;
   border-width: 2px 0px 2px 0px;
@@ -73,62 +73,66 @@ nav > a > img {
   display: flex;
   flex-direction: column;
 }
-#post > h1,h2,h3{
-    margin-top: 0;
+#post > h1,
+h2,
+h3 {
+  margin-top: 0;
 }
-#post > h1{
-    margin-bottom: 10px; 
+#post > h1 {
+  margin-bottom: 10px;
 }
-#post > h2, h3{
-    margin: auto;
-    padding-bottom: 5px;
+#post > h2,
+h3 {
+  margin: auto;
+  padding-bottom: 5px;
 }
-#songs-box{
+#songs-box {
   overflow-y: scroll;
   padding-bottom: 10px;
 }
-#songs-box > div{
-    display:flex;
-    flex-direction: row;
-    padding-top: 10px;
+#songs-box > div {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
 }
-h4{
+h4 {
   margin: 0;
   padding-right: 5px;
-} 
-#bottom-bar{
+}
+#bottom-bar {
   padding: 5px;
 }
-#link-button{
+#link-button {
   float: left;
 }
-#like-button{
+#like-button {
   float: right;
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 }
-#like-button > p{
+#like-button > p {
   margin-right: 10px;
 }
-#create-playlist{
+#create-playlist {
   display: flex;
   flex-direction: column;
 }
-#playlist-control{
+#playlist-control {
   display: flex;
 }
-#playlist-control > button{
+#playlist-control > button {
   margin-top: 10px;
   margin-left: 10px;
 }
-#search-songs{
-   display: flex;
-    flex-direction: column;
+#search-songs {
+  display: flex;
+  flex-direction: column;
 }
-#search-songs:focus-within .dropdown{
+#search-songs:focus-within .dropdown {
   display: block;
 }
-.dropdown{
+.dropdown {
   display: none;
   height: auto;
   position: absolute;
@@ -137,12 +141,11 @@ h4{
   top: 210px;
   font-size: 16px;
 }
-.dropdown p{
+.dropdown p {
   margin: 0;
   padding: 5px;
 }
-.dropdown p:hover{
+.dropdown p:hover {
   cursor: pointer;
   background-color: #b99279;
 }
-
